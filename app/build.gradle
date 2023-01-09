@@ -43,4 +43,8 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.6'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
     implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
+
+//    implementation 'com.github.AnyChart:AnyChart-Android:0.0.3'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

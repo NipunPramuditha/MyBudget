@@ -14,8 +14,8 @@ import java.util.List;
 
 public class WeekSpendingAdapter extends RecyclerView.Adapter<WeekSpendingAdapter.ViewHolder>{
 
-    private Context mContext;
-    private List<Data> myDataList;
+    private final Context mContext;
+    private final List<Data> myDataList;
 
     public WeekSpendingAdapter(Context mContext, List<Data> myDataList) {
         this.mContext = mContext;

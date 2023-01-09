@@ -52,7 +52,7 @@ public class TodaySpendingActivity extends AppCompatActivity {
     private ProgressDialog loader;
 
     private FirebaseAuth mAuth;
-    private String onlineUserId;
+    private String onlineUserId="";
     private DatabaseReference expenseRef;
 
     private TodayItemAdapter todayItemAdapter;
@@ -124,7 +124,6 @@ public class TodaySpendingActivity extends AppCompatActivity {
                     Object total = map.get("amount");
                     int pTotal = Integer.parseInt(String.valueOf(total));
                     totalAmount += pTotal;
-
                     totalAmountSpentOn.setText("Total Day's spending: $" + totalAmount);
                 }
             }

@@ -31,12 +31,12 @@ import java.util.List;
 
 public class TodayItemAdapter extends RecyclerView.Adapter<TodayItemAdapter.ViewHolder>{
 
-    private Context mContext;
-    private List<Data> myDataList;
-    private String post_key = "";
-    private String item = "";
-    private String note = "";
-    private int amount = 0;
+    private final Context mContext;
+    private final List<Data> myDataList;
+    private final String post_key = "";
+    private final String item = "";
+    private final String note = "";
+    private final int amount = 0;
 
     public TodayItemAdapter(Context mContext, List<Data> myDataList) {
         this.mContext = mContext;
