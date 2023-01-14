@@ -127,7 +127,6 @@ public class TodaySpendingActivity extends AppCompatActivity {
                     totalAmountSpentOn.setText("Total Day's spending: $" + totalAmount);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -191,7 +190,11 @@ public class TodaySpendingActivity extends AppCompatActivity {
                     Weeks weeks = Weeks.weeksBetween(epoch, now);
                     Months months = Months.monthsBetween(epoch, now);
 
-                    Data data = new Data(Item, date, id, Notes, Integer.parseInt(Amount),weeks.getWeeks(), months.getMonths());
+                    String itemNDay = Item+date;
+                    String itemNWeek = Item+weeks.getWeeks();
+                    String itemNMonth = Item+months.getMonths();
+
+                    Data data = new Data(Item, date, id, itemNDay, itemNWeek, itemNMonth, Integer.parseInt(Amount),weeks.getWeeks(), months.getMonths(), Notes);
                     expenseRef.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

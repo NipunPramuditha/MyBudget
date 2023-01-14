@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.MutableDateTime;
+import org.joda.time.Weeks;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,10 +34,15 @@ public class TodayItemAdapter extends RecyclerView.Adapter<TodayItemAdapter.View
 
     private final Context mContext;
     private final List<Data> myDataList;
-    private final String post_key = "";
-    private final String item = "";
-    private final String note = "";
-    private final int amount = 0;
+//    private final String post_key = "";
+//    private final String item = "";
+//    private final String note = "";
+//    private final int amount = 0;
+
+    private String post_key = "";
+    private String item = "";
+    private int amount = 0;
+    private String note = "";
 
     public TodayItemAdapter(Context mContext, List<Data> myDataList) {
         this.mContext = mContext;
@@ -94,96 +100,101 @@ public class TodayItemAdapter extends RecyclerView.Adapter<TodayItemAdapter.View
                 break;
         }
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                post_key = data.getId();
-//                item = data.getItem();
-//                amount = data.getAmount();
-//                note = data.getNote();
-//                updateData();
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                post_key = data.getId();
+                item = data.getItem();
+                amount = data.getAmount();
+                note = data.getNote();
+                updateData();
+            }
+        });
     }
 
-//    private void updateData(){
-//        AlertDialog.Builder myDialog = new AlertDialog.Builder(mContext);
-//        LayoutInflater inflater = LayoutInflater.from(mContext);
-//        View mView = inflater.inflate(R.layout.update_layout, null);
-//
-//        myDialog.setView(mView);
-//        final AlertDialog dialog = myDialog.create();
-//
-//        final TextView mItem = mView.findViewById(R.id.itemName);
-//        final EditText mAmount = mView.findViewById(R.id.amount);
-//        final EditText mNotes = mView.findViewById(R.id.note);
-//
-//        mItem.setText(item);
-//
-//        mAmount.setText(String.valueOf(amount));
-//        mAmount.setSelection(String.valueOf(amount).length());
-//
-//        mNotes.setText(note);
-//        mNotes.setSelection(note.length());
-//
-//        Button delBtn = mView.findViewById(R.id.btnDelete);
-//        Button btnUpdate = mView.findViewById(R.id.btnUpdate);
-//
-//        btnUpdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                amount = Integer.parseInt(mAmount.getText().toString());
-//                note = mNotes.getText().toString();
-//
-//                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//                Calendar cal = Calendar.getInstance();
-//                String date = dateFormat.format(cal.getTime());
-//
-//                MutableDateTime epoch = new MutableDateTime();
-//                epoch.setDate(0);
-//                DateTime now = new DateTime();
-//                Months months = Months.monthsBetween(epoch, now);
-//
-//                Data data = new Data(item, date, post_key, note, amount, months.getMonths());
-//
-//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//                reference.child(post_key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(mContext, "Updated Successfully", Toast.LENGTH_SHORT).show();
-//                        }else{
-//                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        delBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//                reference.child(post_key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(mContext, "Deleted Successfully", Toast.LENGTH_SHORT).show();
-//                        }else{
-//                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//                dialog.dismiss();
-//            }
-//        });
-//        dialog.show();
-//    }
+    private void updateData(){
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(mContext);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View mView = inflater.inflate(R.layout.update_layout, null);
+
+        myDialog.setView(mView);
+        final AlertDialog dialog = myDialog.create();
+
+        final TextView mItem = mView.findViewById(R.id.itemName);
+        final EditText mAmount = mView.findViewById(R.id.amount);
+        final EditText mNotes = mView.findViewById(R.id.note);
+
+        mItem.setText(item);
+
+        mAmount.setText(String.valueOf(amount));
+        mAmount.setSelection(String.valueOf(amount).length());
+
+        mNotes.setText(note);
+        mNotes.setSelection(note.length());
+
+        Button delBtn = mView.findViewById(R.id.btnDelete);
+        Button btnUpdate = mView.findViewById(R.id.btnUpdate);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                amount = Integer.parseInt(mAmount.getText().toString());
+                note = mNotes.getText().toString();
+
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                Calendar cal = Calendar.getInstance();
+                String date = dateFormat.format(cal.getTime());
+
+                MutableDateTime epoch = new MutableDateTime();
+                epoch.setDate(0);
+                DateTime now = new DateTime();
+                Weeks weeks = Weeks.weeksBetween(epoch, now);
+                Months months = Months.monthsBetween(epoch, now);
+
+                String itemNDay = item+date;
+                String itemNWeek = item+weeks.getWeeks();
+                String itemNMonth = item+months.getMonths();
+
+                Data data = new Data(item, date, post_key, itemNDay, itemNWeek, itemNMonth, amount,weeks.getWeeks(), months.getMonths(), note);
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                reference.child(post_key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(mContext, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                reference.child(post_key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(mContext, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
     @Override
     public int getItemCount() {

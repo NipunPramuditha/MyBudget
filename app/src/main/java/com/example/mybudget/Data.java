@@ -2,21 +2,25 @@ package com.example.mybudget;
 
 public class Data {
 
-    String item, date, id, note;
-    int amount, month, week;
+    String item, date, id, itemNDay, itemNWeek, itemNMonth;
+    int amount, week, month;
+    String note;
 
     public Data() {
 
     }
 
-    public Data(String item, String date, String id, String note, int amount, int month, int week) {
+    public Data(String item, String date, String id, String itemNDay, String itemNWeek, String itemNMonth, int amount, int week, int month, String note) {
         this.item = item;
         this.date = date;
         this.id = id;
-        this.note = note;
+        this.itemNDay = itemNDay;
+        this.itemNWeek = itemNWeek;
+        this.itemNMonth = itemNMonth;
         this.amount = amount;
-        this.month = month;
         this.week = week;
+        this.month = month;
+        this.note = note;
     }
 
     public String getItem() {
@@ -43,12 +47,28 @@ public class Data {
         this.id = id;
     }
 
-    public String getNote() {
-        return note;
+    public String getItemNDay() {
+        return itemNDay;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setItemNDay(String itemNDay) {
+        this.itemNDay = itemNDay;
+    }
+
+    public String getItemNWeek() {
+        return itemNWeek;
+    }
+
+    public void setItemNWeek(String itemNWeek) {
+        this.itemNWeek = itemNWeek;
+    }
+
+    public String getItemNMonth() {
+        return itemNMonth;
+    }
+
+    public void setItemNMonth(String itemNMonth) {
+        this.itemNMonth = itemNMonth;
     }
 
     public int getAmount() {
@@ -59,6 +79,14 @@ public class Data {
         this.amount = amount;
     }
 
+    public int getWeek() {
+        return week;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
     public int getMonth() {
         return month;
     }
@@ -67,11 +95,11 @@ public class Data {
         this.month = month;
     }
 
-    public int getWeek() {
-        return week;
+    public String getNote() {
+        return note;
     }
 
-    public void setWeek(int week) {
-        this.week = week;
+    public void setNote(String note) {
+        this.note = note;
     }
 }
